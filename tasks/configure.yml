@@ -1,0 +1,2 @@
+- name: create s3ql filesystem
+  command: "mkfs.s3ql s3://{{ s3ql_bucket_name }} --plain --cachedir={{ s3ql_cache_path }} --authfile={{ s3ql_authinfo_path }}"

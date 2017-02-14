@@ -1,0 +1,6 @@
+---
+- name: install require package
+  apt: name={{item}} state=present
+  with_items:
+  - docker-engine
+  - s3ql

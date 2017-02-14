@@ -1,0 +1,12 @@
+---
+registry_path: /data/registry
+registry_access_key_id: 123
+registry_secret_access_key: 456
+registry_s3ql_bucket_name: registry-s3ql
+registry_s3ql_cache_folder: /data/registry/.s3ql
+registry_s3ql_user: root
+registry_s3ql_group: root
+registry_s3ql_passphrase: 12345678
+registry_s3ql_encryption: true
+registry_s3ql_log_path: /var/log/s3ql
+registry_s3ql_log_file: /var/log/s3ql/s3ql.log
