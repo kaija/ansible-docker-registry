@@ -4,3 +4,10 @@
   with_items:
   - docker-engine
   - s3ql
+
+- name: create directory
+  file: state=directory path="/{{item}}" owner="{{registry_s3ql_user}}" group="{{registry_s3ql_group}}" mode=0755
+  with_items:
+  - "{{registry_path}}"
+  - "{{registry_s3ql_cache_folder}}"
+  - "{{registry_s3ql_log_path}}"

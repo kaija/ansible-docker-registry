@@ -1,0 +1,7 @@
+[s3]
+storage-url: s3://{{registry_s3ql_bucket_name}}
+backend-login: {{registry_access_key_id}}
+backend-password: {{registry_secret_access_key}}
+{% if registry_s3ql_encryption %}
+fs-password {{registry_s3ql_passphrase}}
+{% endif %}
