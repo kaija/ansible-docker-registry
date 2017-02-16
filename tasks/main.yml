@@ -1,3 +1,6 @@
 ---
 - name: install docker registry
   include: install.yml
+
+- name: configure docker registry
+  include: configure.yml

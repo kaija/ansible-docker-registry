@@ -1,0 +1,19 @@
+[Unit]
+Description=docker registry s3ql fs
+After=network.target
+
+[Service]
+User={{ registry_s3ql_user }}
+Group={{ registry_s3ql_user }}
+LimitNOFILE=65536
+
+ExecStartPre=/usr/bin/fsck.s3ql --log syslog --batch --authfile {{ registry_path }}/s3ql-autoinfo s3://{{ registry_s3ql_bucket_name }}
+ExecStart=/usr/bin/mount.s3ql --log syslog --upstart --authfile {{ registry_path }}/s3ql-autoinfo s3://{{ registry_s3ql_bucket_name }} {{ registry_path }} --allow-other --cachedir  {{ registry_s3ql_cache_folder }}
+
+ExecStop=/usr/bin/umount.s3ql {{ registry_path }}
+
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+Alias=s3ql.service

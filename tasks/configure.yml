@@ -1,2 +1,31 @@
-- name: create s3ql filesystem
-  command: "mkfs.s3ql s3://{{ s3ql_bucket_name }} --plain --cachedir={{ s3ql_cache_path }} --authfile={{ s3ql_authinfo_path }}"
+- name: ensure s3ql mount point
+  file:
+    state: directory
+    path: "{{ registry_path }}"
+    owner: "{{ registry_s3ql_user }}"
+    group: "{{ registry_s3ql_group }}"
+    mode: 0775
+  ignore_errors: True
+
+- name: ensure s3ql config folder
+  file:
+    state: directory
+    path: /root/.s3ql
+    owner: "{{ registry_s3ql_user }}"
+    group: "{{ registry_s3ql_group }}"
+    mode: 0775
+
+- name: s3ql config
+  template:  src="{{item}}.j2" dest="/{{item}}" owner=root group=root mode=0644
+  with_items:
+  - etc/fuse.conf
+
+- name: s3ql config
+  template:  src="{{item}}.j2" dest="/{{item}}" owner="{{ registry_s3ql_user }}" group="{{ registry_s3ql_group }}" mode=0400
+  with_items:
+  - root/.s3ql/authinfo2
+  - etc/systemd/system/s3ql.service
+
+#- name: create s3ql filesystem
+#  command: "mkfs.s3ql s3://{{ registry_s3ql_bucket_name }} --plain --cachedir={{ registry_s3ql_cache_folder }} --authfile={{ registry_path }}/s3ql-autoinfo"
+
